@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import AuthLayout from '@/layouts/AuthLayout.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,8 +23,19 @@ const router = createRouter({
     },
     {
       path: '/',
-      name: 'Home',
-      component: HomeView,
+      component: AppLayout,
+      children: [
+        {
+          name: 'AllNotes',
+          path: 'all-notes',
+          component: () => import('@/views/notes/AllNotes.vue'),
+        },
+        {
+          name: 'ArchivedNotes',
+          path: 'archived-notes',
+          component: () => import('@/views/notes/ArchivedNotes.vue'),
+        },
+      ],
     },
   ],
 })
